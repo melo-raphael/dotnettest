@@ -7,4 +7,13 @@ app.MapGet("/{userId}", (string userId) =>
     return "Hello World!";
 });
 
-app.Run();
+builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+{
+    builder.WithOrigins("*")
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+}));
+
+app.UseCors("MyPolicy");
+
+app.Run("http://*:5000");
