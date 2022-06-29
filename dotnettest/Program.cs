@@ -1,4 +1,13 @@
 var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+{
+    builder.WithOrigins("*")
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+}));
+
 var app = builder.Build();
 
 app.MapGet("/{userId}", (string userId) =>
@@ -7,12 +16,6 @@ app.MapGet("/{userId}", (string userId) =>
     return "Hello World!";
 });
 
-builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
-{
-    builder.WithOrigins("*")
-        .AllowAnyMethod()
-        .AllowAnyHeader();
-}));
 
 app.UseCors("MyPolicy");
 
