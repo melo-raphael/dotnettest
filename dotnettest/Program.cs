@@ -10,10 +10,10 @@ builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
 
 var app = builder.Build();
 
-app.MapGet("/{userId}", (string userId) =>
+app.MapGet("/users/{userId}", (string userId) =>
 {
     Console.WriteLine(userId);
-    return "Hello World!";
+    return $"Hello World! {userId}";
 });
 
 
